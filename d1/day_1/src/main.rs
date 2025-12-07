@@ -6,8 +6,8 @@ use std::{
 
 fn main() {
     let turns = parse_file("../d1_input");
-    let final_position = process_turns(50, turns);
-    println!("YEAHHHHHHHHH {final_position}");
+    let times_zero = process_turns(50, turns);
+    println!("YEAHHHHHHHHH {times_zero}");
 }
 
 fn parse_file(path: impl AsRef<Path>) -> Vec<i32> {
