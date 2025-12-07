@@ -1,26 +1,19 @@
-use std::io;
+use std::io::{prelude::*, BufReader};
+use std::fs;
+use std::path;
 
 fn main() {
-    let mut start = String::new();
-    let mut turn = String::new();
+    let instructions = parse_file("../d1_input");
+    for instruction in instructions {
+        println!("{:?}", instruction);
+    }
     
-    println!("Current value?");
+}
 
-    io::stdin()
-        .read_line(&mut start)
-        .expect("input failure");
-
-    println!("turn ammount?");
-
-    io::stdin()
-        .read_line(&mut turn)
-        .expect("input failure");
-
-    let start: i32 = start.trim().parse().expect("nan dummy");
-    let turn: i32 = turn.trim().parse().expect("nan dummy");
-
-    let result = &start + &turn;
-
-    println!("end is: {result}")
-    
+fn parse_file(path: impl AsRef<path::Path>) -> Vec<String> {
+    let file = fs::File::open(path).expect("couldn't open file");
+    let buf = BufReader::new(file);
+    buf.lines()
+        .map(|l| l.expect("couldn't parse line"))
+        .collect()
 }
