@@ -2,14 +2,12 @@ use std::{
     fs::File,
     io::{prelude::*, BufReader},
     path::Path,
-    cmp::Eq
 };
 
 fn main() {
     let turns = parse_file("../d1_input");
-    for turn in turns {
-        println!("{:?}", turn);
-    }
+    let final_position = process_turns(50, turns);
+    println!("YEAHHHHHHHHH {final_position}");
 }
 
 fn parse_file(path: impl AsRef<Path>) -> Vec<i32> {
@@ -20,7 +18,7 @@ fn parse_file(path: impl AsRef<Path>) -> Vec<i32> {
         .map(|l| l.expect("couldn't parse line"))
         .collect();
 
-    let mut vec = Vec::new();
+    let mut destringed = Vec::new();
 
     for turn in stringy_turns.iter() {
         let polarity = if turn.chars().nth(0) == Some('L') {
@@ -31,16 +29,26 @@ fn parse_file(path: impl AsRef<Path>) -> Vec<i32> {
 
         let intern: i32 = turn.trim().trim_matches(char::is_alphabetic).parse().expect("fuuuuuuuck");
 
-        vec.push(intern * polarity)
+        destringed.push(intern * polarity)
     }
 
-    vec
+    destringed
     
 }
 
-/*
-fn process_turns(initial: i32, turns: Vec<String>) -> i32 {
+
+fn process_turns(initial: i32, turns: Vec<i32>) -> i32 {
     // modulo is x.rem_euclid(y)
-    
+    let mut position = initial;
+    let mut count = 0;
+
+    for turn in turns {
+        position = (position + turn).rem_euclid(100);
+        if position == 0 {
+            count += 1;
+        }
+    }
+
+    count
 }
-*/
+
