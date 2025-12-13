@@ -43,6 +43,7 @@ fn process_turns(initial: i32, turns: Vec<i32>) -> i32 {
     let mut count = 0;
 
     for turn in turns {
+        // whyyyyyyyyyy
         position = (position + turn).rem_euclid(100);
         count += if position == 0 {
             1
