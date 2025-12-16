@@ -43,16 +43,39 @@ fn process_turns(initial: i32, turns: Vec<i32>) -> i32 {
     let mut count = 0;
 
     for turn in turns {
-        // whyyyyyyyyyy
-        position = (position + turn).rem_euclid(100);
-        count += if position == 0 {
-            1
-        } else {
-            (position + turn).div_euclid(100).abs()
+
+        //likely could have been done a looooot cleaner with some sort of euclidian-division based operation but i couldnt figure that out
+        
+        position = position + turn;
+
+        if position < 0 && position - turn == 0 {
+            position += 100;
+            //println!{"weh"};
         }
 
-        
-        
+        while position < 0 {
+            count += 1;
+            position += 100;
+            //println!{"uppies"};
+        };
+
+        while position > 100 {
+            count += 1;
+            position += -100;
+            //println!{"downsies"};
+        }
+
+        if position == 100 {
+            position += -100;
+        }
+
+        if position == 0 {
+            count += 1;
+            //println!{"nothing. absolutely nothing at all. zero. zilch. nada."}
+        }
+
+        //println!("Turn: {turn}, Position: {position}, Count: {count}");
+                
     }
 
     count
