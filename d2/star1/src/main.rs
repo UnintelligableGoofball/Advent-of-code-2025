@@ -14,13 +14,14 @@ fn parse_line(path: impl AsRef<Path>) {
 
     let mut ranges_line = String::new();
     buf.read_line(&mut ranges_line).expect("naur");
-    let mut ranges_line_str = ranges_line.trim();
-    println!("{:?}", ranges_line_str);
+    ranges_line = ranges_line.trim().to_string();
+    println!("{:?}", ranges_line);
 
-    struct Elf_Range {
-        
-    }
+    let ranges_iter = ranges_line.split(",");
 
+    let rangs_vec: Vec<String> = ranges_iter.to_string().collect();
+    
+    
     }
 
 
